@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Accident Severity Prediction</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f6fa;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .box {
+            background: white;
+            max-width: 650px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px #aaa;
+        }
+
+        h1 {
+            color: #173b67;
+        }
+
+        input, select {
+            width: 90%;
+            padding: 11px;
+            margin: 7px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #173b67;
+            color: white;
+            border: none;
+            padding: 13px 25px;
+            border-radius: 7px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>🚦 Accident Severity Prediction</h1>
+
+    <form method="POST">
+
+        <input type="text" name="city" placeholder="City" required>
+
+        <input type="text" name="state" placeholder="State" required>
+
+        <input type="number" step="any" name="latitude"
+               placeholder="Latitude" required>
+
+        <input type="number" step="any" name="longitude"
+               placeholder="Longitude" required>
+
+        <input type="number" name="hour"
+               placeholder="Hour (0-23)" min="0" max="23" required>
+
+        <select name="is_weekend" required>
+            <option value="">Is it weekend?</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <select name="road_type" required>
+            <option value="">Select Road Type</option>
+            <option value="highway">Highway</option>
+            <option value="urban">Urban</option>
+            <option value="rural">Rural</option>
+        </select>
+
+        <input type="number" name="lanes"
+               placeholder="Number of Lanes" min="1" required>
+
+        <select name="traffic_signal" required>
+            <option value="">Traffic Signal</option>
+            <option value="1">Present</option>
+            <option value="0">Not Present</option>
+        </select>
+
+        <select name="weather" required>
+            <option value="">Select Weather</option>
+            <option value="clear">Clear</option>
+            <option value="rain">Rain</option>
+            <option value="fog">Fog</option>
+        </select>
+
+        <input type="text" name="visibility"
+               placeholder="Visibility" required>
+
+        <input type="number" step="any" name="temperature"
+               placeholder="Temperature" required>
+
+        <input type="text" name="traffic_density"
+               placeholder="Traffic Density" required>
+
+        <select name="cause" required>
+            <option value="">Select Accident Cause</option>
+            <option value="weather">Weather</option>
+            <option value="distraction">Distraction</option>
+            <option value="overspeeding">Overspeeding</option>
+            <option value="drunk driving">Drunk Driving</option>
+            <option value="poor road">Poor Road</option>
+        </select>
+
+        <select name="is_peak_hour" required>
+            <option value="">Is it peak hour?</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <input type="text" name="festival"
+               placeholder="Festival" value="Unknown">
+
+        <br>
+
+        <button type="submit">
+            Predict Accident Severity
+        </button>
+
+    </form>
+
+    {% if prediction %}
+        <div class="result">
+            Prediction: {{ prediction }}
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

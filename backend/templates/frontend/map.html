@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Accident Risk Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f2f5f7; color: #172033; }
+        h1 { text-align: center; color: #173b67; padding: 20px 10px 6px; margin: 0; }
+        .sub { text-align: center; color: #5b6678; margin: 0 10px 16px; font-size: 14px; }
+        #map { height: 620px; width: 92%; margin: auto; border-radius: 15px; box-shadow: 0 4px 15px #aaa; }
+
+        .legend { width: 92%; margin: 14px auto 30px; background: white; border-radius: 12px;
+                  padding: 14px 18px; font-size: 14px; line-height: 1.7; box-shadow: 0 2px 8px #ccd; }
+        .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; }
+
+        .pop { width: 250px; font-size: 13px; line-height: 1.5; }
+        .pop h3 { margin: 0 0 2px; font-size: 17px; color: #173b67; }
+        .pop .state { color: #6a7587; margin-bottom: 6px; }
+        .badge { display: inline-block; padding: 3px 11px; border-radius: 999px; color: white; font-weight: bold; font-size: 12px; }
+        .b-High { background: #d32f2f; } .b-Medium { background: #f57c00; } .b-Low { background: #2e7d32; }
+        .pop table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+        .pop td { padding: 3px 0; border-bottom: 1px solid #eee; }
+        .pop td:last-child { text-align: right; font-weight: bold; }
+        .why { background: #f3f6fb; border-radius: 8px; padding: 8px 10px; margin: 8px 0; }
+        .why b { color: #173b67; }
+        .hazard-box { text-align: center; }
+        .hazard-box img { width: 250px; height: 140px; object-fit: cover; border-radius: 8px; display: block; background: #e3e8ef; }
+        .hazard-box .cap { font-size: 11px; color: #6a7587; margin-top: 3px; }
+        .note { font-size: 11px; color: #8a93a3; margin-top: 6px; }
+    </style>
+</head>
+<body>
+    <h1>🚦 Road Accident Risk Map</h1>
+    <p class="sub">Click a city marker to see its accident statistics, why it has that risk level, and its main hazard.</p>
+
+    <div id="map"></div>
+
+    <div class="legend">
+        <b>How risk level is decided</b><br>
+        Cities are ranked by the share of their accidents that were <b>major or fatal</b> (serious accidents).
+        The top third is <span class="dot" style="background:#d32f2f"></span><b>High</b>,
+        the middle third <span class="dot" style="background:#f57c00"></span><b>Medium</b>,
+        the bottom third <span class="dot" style="background:#2e7d32"></span><b>Low</b>.<br>
+        <i>Note: the differences between cities in this dataset are small (a few percentage points),
+        so the levels show relative ranking, not a big gap in danger.</i>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([20.5937, 78.9629], 5);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var cities = {{ accidents | tojson }};
+        var COLORS = { High: '#d32f2f', Medium: '#f57c00', Low: '#2e7d32' };
+        var IMG_PATH = "{{ url_for('static', filename='charts/hazard_images/') }}";
+
+        function esc(t) {
+            var d = document.createElement('div');
+            d.textContent = t;
+            return d.innerHTML;
+        }
+
+        cities.forEach(function (c) {
+            var color = COLORS[c.risk_level];
+
+            var html =
+                '<div class="pop">' +
+                  '<h3>' + esc(c.city) + '</h3>' +
+                  '<div class="state">' + esc(c.state) + ' &nbsp;<span class="badge b-' + c.risk_level + '">' +
+                      c.risk_level + ' risk</span></div>' +
+                  '<table>' +
+                    '<tr><td>Total accidents</td><td>' + c.accident_count + '</td></tr>' +
+                    '<tr><td>Serious (major + fatal)</td><td>' + c.serious_accidents + ' (' + c.serious_percentage + '%)</td></tr>' +
+                    '<tr><td>Fatal accidents</td><td>' + c.fatal_percentage + '%</td></tr>' +
+                    '<tr><td>Avg. casualties</td><td>' + c.avg_casualties + '</td></tr>' +
+                    '<tr><td>Most common cause</td><td>' + esc(c.top_cause) + ' (' + c.top_cause_pct + '%)</td></tr>' +
+                    '<tr><td>Most common road</td><td>' + esc(c.top_road_type) + '</td></tr>' +
+                    '<tr><td>Busiest hour</td><td>' + esc(c.peak_hour) + '</td></tr>' +
+                  '</table>' +
+                  '<div class="why"><b>Why ' + c.risk_level + ' risk?</b><br>' + esc(c.risk_reason) + '</div>' +
+                  '<div class="hazard-box"><b>Main hazard: ' + esc(c.hazard_reason) + '</b><br>' +
+                    '<img width="250" height="140" src="' + IMG_PATH + c.image_name + '" alt="' + esc(c.hazard_reason) + '" ' +
+                    'onerror="this.alt=\'Image not found: ' + c.image_name + '\'">' +
+                    '<div class="cap">Illustrative photo for the most common cause in this city</div></div>' +
+                '</div>';
+
+            L.circleMarker([c.latitude, c.longitude], {
+                radius: 13, color: '#ffffff', weight: 2, fillColor: color, fillOpacity: 0.9
+            })
+            .addTo(map)
+            .bindPopup(html, { maxWidth: 290, minWidth: 260, autoPanPadding: [30, 30] })
+            .bindTooltip(c.city + ' – ' + c.risk_level, { direction: 'top' });
+        });
+    </script>
+</body>
+</html>

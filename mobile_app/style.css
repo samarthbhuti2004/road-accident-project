@@ -1,0 +1,211 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f5f9;
+  color: #172033;
+}
+
+.topbar {
+  background: #12233f;
+  color: white;
+  padding: 18px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.status {
+  font-size: 12px;
+  color: #c8d7ef;
+}
+
+.container {
+  width: min(100% - 28px, 620px);
+  margin: 22px auto;
+}
+
+.welcome {
+  background: #173e70;
+  color: white;
+  padding: 26px 22px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+}
+
+.eyebrow {
+  color: #b9d9ff;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 34px;
+  line-height: 1.15;
+  margin: 12px 0;
+}
+
+.welcome p {
+  line-height: 1.6;
+}
+
+.card {
+  background: white;
+  padding: 21px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px #14233b0c;
+}
+
+.card h2 {
+  font-size: 19px;
+  margin-top: 0;
+}
+
+.card p {
+  color: #5b6678;
+  line-height: 1.5;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 7px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccd5e1;
+  border-radius: 9px;
+  background: white;
+  font-size: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 17px;
+  border: none;
+  border-radius: 9px;
+  background: #16734a;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #105b3a;
+}
+
+.message,
+.result {
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 9px;
+  background: #edf3fa;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+#mapPlaceholder {
+  text-align: center;
+  background: #edf3fa;
+  border-radius: 12px;
+  padding: 25px 10px;
+}
+
+#mapPlaceholder span {
+  font-size: 38px;
+}
+
+.disclaimer {
+  font-size: 12px;
+  color: #647084;
+  line-height: 1.6;
+  padding: 4px;
+}
+
+@media (max-width: 380px) {
+  .status {
+    font-size: 10px;
+  }
+
+  h1 {
+    font-size: 29px;
+  }
+}
+
+/* ---------- added: API status, results, map ---------- */
+.status.online { color: #7ee2a8; }
+.status.offline { color: #ff9b9b; }
+
+label small { font-weight: normal; color: #6a7587; }
+
+button:disabled { opacity: .6; cursor: wait; }
+
+.badge {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 17px;
+  color: white;
+}
+.badge.sev-fatal { background: #d32f2f; }
+.badge.sev-major { background: #f57c00; }
+.badge.sev-minor { background: #2e7d32; }
+.small { font-size: 13px; color: #5b6678; margin: 10px 0; }
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 52px 1fr 48px;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  margin: 6px 0;
+  text-transform: capitalize;
+}
+.bar { background: #dde5f0; border-radius: 6px; height: 10px; overflow: hidden; }
+.fill { height: 100%; border-radius: 6px; }
+.fill.sev-fatal { background: #d32f2f; }
+.fill.sev-major { background: #f57c00; }
+.fill.sev-minor { background: #2e7d32; }
+
+#map { height: 300px; border-radius: 12px; margin-top: 10px; z-index: 0; }
+
+.hotspots { list-style: none; padding: 0; margin: 12px 0 0; }
+.hotspots li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 4px;
+  border-bottom: 1px solid #e6ebf2;
+  cursor: pointer;
+}
+.hotspots li small { color: #6a7587; }
+.hotspots .tag { margin-left: auto; font-weight: bold; font-size: 13px; }
+.dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+
+/* ---------- map popup (mobile) ---------- */
+.pop { font-size: 12.5px; line-height: 1.45; }
+.pop table { width: 100%; border-collapse: collapse; margin: 6px 0; }
+.pop td { padding: 2px 0; border-bottom: 1px solid #eee; }
+.pop td:last-child { text-align: right; font-weight: bold; }
+.pop .why { background: #f3f6fb; border-radius: 7px; padding: 6px 8px; margin: 6px 0; }
+.pop img.hz { display: block; width: 220px; height: 120px; object-fit: cover; border-radius: 8px; margin-top: 5px; background: #e3e8ef; }
+.badge.b-High { background: #d32f2f; } .badge.b-Medium { background: #f57c00; } .badge.b-Low { background: #2e7d32; }
+.pop .badge { font-size: 11px; padding: 2px 9px; }

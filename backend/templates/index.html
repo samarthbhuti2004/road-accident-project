@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Road Accident Analytics</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f2f5f9;
+        }
+
+        header {
+            background: #173f6b;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 25px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            width: 220px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        .card h2 {
+            margin: 0;
+            color: #173f6b;
+        }
+
+        .section {
+            background: white;
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        .risk {
+            display: flex;
+            gap: 20px;
+        }
+
+        .low, .medium, .high {
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            width: 150px;
+            text-align: center;
+        }
+
+        .low {
+            background: green;
+        }
+
+        .medium {
+            background: orange;
+        }
+
+        .high {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Road Accident Data Analytics</h1>
+    <p>Accident Severity Prediction Using Machine Learning</p>
+</header>
+
+<div class="container">
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>2,458</h2>
+            <p>Total Accidents</p>
+        </div>
+
+        <div class="card">
+            <h2>742</h2>
+            <p>Serious Accidents</p>
+        </div>
+
+        <div class="card">
+            <h2>312</h2>
+            <p>Fatal Accidents</p>
+        </div>
+
+        <div class="card">
+            <h2>5</h2>
+            <p>High Risk Areas</p>
+        </div>
+
+    </div>
+
+    <div class="section">
+        <h2>Accident Analysis</h2>
+        <p>Location, time, weather, road condition and vehicle type will be analyzed here.</p>
+    </div>
+
+    <div class="section">
+        <h2>Risk Levels</h2>
+
+        <div class="risk">
+
+            <div class="low">
+                🟢<br>
+                LOW RISK
+            </div>
+
+            <div class="medium">
+                🟡<br>
+                MEDIUM RISK
+            </div>
+
+            <div class="high">
+                🔴<br>
+                HIGH RISK
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Machine Learning Prediction</h2>
+        <p>Accident severity prediction will be added here.</p>
+    </div>
+
+    <div class="section">
+        <h2>📱 Mobile Application</h2>
+        <p>GPS location, map and nearby accident-risk information will be connected here.</p>
+    </div>
+
+</div>
+
+</body>
+</html>

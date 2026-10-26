@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#12233f">
+  <title>RoadSafe - Accident Prediction</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">🛣️ RoadSafe</div>
+    <span class="status" id="apiStatus">Connecting…</span>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <p class="eyebrow">SMART ROAD SAFETY</p>
+      <h1>Travel safer.<br>Reach safer.</h1>
+      <p>Check accident severity risk using your location and road conditions.</p>
+      <button id="locationBtn">📍 Get My Location</button>
+      <p id="locationResult" class="message" aria-live="polite">Location not checked yet.</p>
+    </section>
+
+    <section class="card">
+      <h2>🚦 Accident Risk Prediction</h2>
+      <p>Time, weekend and peak hour are filled in automatically from your phone.</p>
+
+      <form id="predictionForm">
+        <label for="city">City <small>(auto-picked from GPS, or choose)</small></label>
+        <select id="city"><option value="">Use my GPS location</option></select>
+
+        <label for="weather">Weather</label>
+        <select id="weather" required>
+          <option value="">Select weather</option>
+          <option value="clear">Clear</option>
+          <option value="rain">Rain</option>
+          <option value="fog">Fog</option>
+        </select>
+
+        <label for="road">Road type</label>
+        <select id="road" required>
+          <option value="">Select road type</option>
+          <option value="highway">Highway</option>
+          <option value="urban">Urban</option>
+          <option value="rural">Rural</option>
+        </select>
+
+        <label for="visibility">Visibility</label>
+        <select id="visibility" required>
+          <option value="">Select visibility</option>
+          <option value="high">High (good)</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+
+        <label for="traffic">Traffic density</label>
+        <select id="traffic">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+
+        <button type="submit" id="predictBtn">Predict Severity</button>
+      </form>
+
+      <div id="predictionResult" class="result" aria-live="polite">Your result will appear here.</div>
+    </section>
+
+    <section class="card">
+      <h2>📍 Accident Hotspots</h2>
+      <p>City-wise accident risk from the project dataset.</p>
+      <div id="map"></div>
+      <ul id="hotspotList" class="hotspots"></ul>
+    </section>
+
+    <p class="disclaimer">
+      This app is a project prototype. The model is trained on a synthetic dataset and its
+      predictions are not a guarantee of safety. Follow road signs and drive safely.
+    </p>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

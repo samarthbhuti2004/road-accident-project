@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Road Accident Analytics Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f5f7;
+            margin: 0;
+            padding: 25px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #173b67;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: white;
+            width: 200px;
+            padding: 20px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #bbb;
+        }
+
+        .card h2 {
+            margin: 5px;
+            color: #173b67;
+        }
+
+        .card p {
+            font-size: 16px;
+        }
+
+        .charts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .chart {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #bbb;
+            text-align: center;
+        }
+
+        .chart img {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        @media (max-width: 800px) {
+            .charts {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🚦 Road Accident Analytics Dashboard</h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>20,000</h2>
+            <p>Total Accidents</p>
+        </div>
+
+        <div class="card">
+            <h2>11,025</h2>
+            <p>Minor Accidents</p>
+        </div>
+
+        <div class="card">
+            <h2>5,988</h2>
+            <p>Major Accidents</p>
+        </div>
+
+        <div class="card">
+            <h2>2,987</h2>
+            <p>Fatal Accidents</p>
+        </div>
+
+    </div>
+
+
+    <div class="charts">
+
+        <div class="chart">
+            <h2>Accidents by Severity</h2>
+            <img src="/static/charts/severity.png">
+        </div>
+
+        <div class="chart">
+            <h2>Accidents by Weather</h2>
+            <img src="/static/charts/weather.png">
+        </div>
+
+        <div class="chart">
+            <h2>Accidents by Road Type</h2>
+            <img src="/static/charts/road_type.png">
+        </div>
+
+        <div class="chart">
+            <h2>Accidents by Cause</h2>
+            <img src="/static/charts/cause.png">
+        </div>
+
+        <div class="chart">
+            <h2>Accidents by Hour</h2>
+            <img src="/static/charts/hour.png">
+        </div>
+
+        <div class="chart">
+            <h2>Top 10 Accident-Prone Cities</h2>
+            <img src="/static/charts/top_cities.png">
+        </div>
+
+    </div>
+
+</body>
+</html>
